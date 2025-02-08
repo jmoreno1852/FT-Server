@@ -32,7 +32,7 @@ def write(c):
                 c.send(f_data.encode('utf-8'))
         
         elif command == "cat":
-            print("Sending cat")
+            print("Sending cat...")
             c.send(data.encode('utf-8'))
             print(c.recv(1024).decode('utf-8'))
         

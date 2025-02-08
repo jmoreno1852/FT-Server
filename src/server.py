@@ -43,10 +43,11 @@ def receive_data(c):
                     command, file = data.split(" ",1)
                 except Exception as e:
                     print(e)
-
+            else:
+                command = "ls"
             if command == 'get':
                 f_data = get(file)
-                c.sendall(data.encode('utf-8'))
+                c.sendall(f_data.encode('utf-8'))
             elif command == 'put':#Needs implementation on client side
                 c.send("ready".encode('utf-8'))
                 f_data = c.recv(1024).decode('utf-8')
@@ -55,14 +56,14 @@ def receive_data(c):
                 f_data = cat(file)
                 c.sendall(f_data.encode('utf-8'))
             elif command == 'ls':
-                f_data = ls()
+                f_data = str(ls())
                 c.sendall(f_data.encode('utf-8'))
             else:
                 data = "Useful commands: [ get || put || cat || ls]"
                 c.send(data.encode('utf-8'))
         except Exception as e:
-            print("e")
+            print(e)
             c.close()
-            sys.close()
+            sys.exit()
 
     c.close()
